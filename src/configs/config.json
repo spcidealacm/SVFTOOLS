@@ -1,0 +1,80 @@
+{
+    "command": {
+        "SVFTOOLS.OPEN": {
+            "key": "SVFTOOLS.OPEN",
+            "bar": {
+                "alignment": "left",
+                "priority": 1,
+                "status": [
+                    {
+                        "title": "$(files) OPEN SVF BACKEND",
+                        "color": ""
+                    },
+                    {
+                        "title": "$(files) OPEN INPUT PROJECT",
+                        "color": ""
+                    }
+                ]
+            },
+            "terminal": {
+                "title": "",
+                "exeHead": "",
+                "scriptPath": ""
+            }
+        },
+        "SVFTOOLS.BUILD.BACKEND": {
+            "key": "SVFTOOLS.BUILD.BACKEND",
+            "bar": {
+                "alignment": "left",
+                "priority": 2,
+                "status": [
+                    {
+                        "title": "$(debug-start) BUILD SVF BACKEND",
+                        "color": ""
+                    }
+                ]
+            },
+            "terminal": {
+                "title": "BUILD SVF BACKEND",
+                "exeHead": "source",
+                "scriptPath": "./scripts/backend.sh"
+            }
+        },
+        "SVFTOOLS.BUILD.TARGET": {
+            "key": "SVFTOOLS.BUILD.TARGET",
+            "bar": {
+                "alignment": "left",
+                "priority": 3,
+                "status": [
+                    {
+                        "title": "$(debug-start) BUILD INPUT TARGET",
+                        "color": ""
+                    }
+                ]
+            },
+            "terminal": {
+                "title": "BUILD INPUT TARGET",
+                "exeHead": "source",
+                "scriptPath": "./scripts/target.sh"
+            }
+        },
+        "SVFTOOLS.INSTALL.ENV": {
+            "key": "SVFTOOLS.INSTALL.ENV",
+            "bar": {
+                "alignment": "left",
+                "priority": 4,
+                "status": [
+                    {
+                        "title": "$(extensions) INSTALL SVF ENVIRONMENT",
+                        "color": ""
+                    }
+                ]
+            },
+            "terminal": {
+                "title": "INSTALL SVF ENVIRONMENT",
+                "exeHead": "source",
+                "scriptPath": "./scripts/environment.sh"
+            }
+        }
+    }
+}
