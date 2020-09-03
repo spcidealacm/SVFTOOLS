@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
 import * as store from "./store";
 import { extensionPath } from "./store";
+import { Data } from "./config";
+
 import path from "path";
 
 function terminalFunc(key: store.ConfigKey) {
@@ -55,5 +57,6 @@ export class OpenFileCommand extends store.CommandClass {
     Func() {
         // terminalFunc(store.ConfigKey.OpenFile);
         vscode.window.showInformationMessage("HELLO", "YES");
+        new Data();
     }
 }
