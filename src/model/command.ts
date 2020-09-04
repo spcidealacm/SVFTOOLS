@@ -24,43 +24,38 @@ function terminal(command: string) {
         startTerminal(terInfo);
     }
 }
-export class SetEnvCommand extends data.CommandBasic {
-    constructor() {
-        super(data.context, data.config.command.INSTALL_ENV);
+
+export class TerminialCommand extends data.CommandBasic {
+    constructor(command: string) {
+        super(data.context, command);
     }
     Func() {
-        terminal(data.config.command.INSTALL_ENV);
+        terminal(this.cmd);
     }
 }
-export class BuildBackendCommand extends data.CommandBasic {
-    constructor() {
-        super(data.context, data.config.command.BUILD_BACKEND);
+export class OpenFileCommand extends data.CommandBasic {
+    constructor(command: string) {
+        super(data.context, command);
     }
     Func() {
-        terminal(data.config.command.BUILD_BACKEND);
+        // vscode.window.showInformationMessage("OpenFile", "YES");
     }
 }
-export class BuildTargetCommand extends data.CommandBasic {
+export class OpenTargetCommand extends OpenFileCommand {
     constructor() {
-        super(data.context, data.config.command.BUILD_TARGET);
+        super(data.config.command.OPEN_TARGET);
     }
     Func() {
-        terminal(data.config.command.BUILD_TARGET);
-    }
-}
-export class OpenTargetCommand extends data.CommandBasic {
-    constructor() {
-        super(data.context, data.config.command.OPEN_TARGET);
-    }
-    Func() {
+        super.Func();
         vscode.window.showInformationMessage("TARGET", "YES");
     }
 }
-export class OpenBackendCommand extends data.CommandBasic {
+export class OpenBackendCommand extends OpenFileCommand {
     constructor() {
-        super(data.context, data.config.command.OPEN_BACKEND);
+        super(data.config.command.OPEN_BACKEND);
     }
     Func() {
+        super.Func();
         vscode.window.showInformationMessage("BACKEND", "YES");
     }
 }

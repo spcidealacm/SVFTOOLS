@@ -12,7 +12,7 @@ function initial(context: vscode.ExtensionContext) {
     const command = [
         {
             key: data.config.command.INSTALL_ENV,
-            instance: new cmd.SetEnvCommand(),
+            instance: new cmd.TerminialCommand(data.config.command.INSTALL_ENV),
         },
         {
             key: data.config.command.OPEN_TARGET,
@@ -24,11 +24,15 @@ function initial(context: vscode.ExtensionContext) {
         },
         {
             key: data.config.command.BUILD_TARGET,
-            instance: new cmd.BuildTargetCommand(),
+            instance: new cmd.TerminialCommand(
+                data.config.command.BUILD_TARGET
+            ),
         },
         {
             key: data.config.command.BUILD_BACKEND,
-            instance: new cmd.BuildBackendCommand(),
+            instance: new cmd.TerminialCommand(
+                data.config.command.BUILD_BACKEND
+            ),
         },
         {
             key: data.config.command.SHOW_REPORT,
@@ -40,37 +44,37 @@ function initial(context: vscode.ExtensionContext) {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.INSTALL_ENV
             ),
-            instance: new bar.SetEnvBar(),
+            instance: new bar.GenerateBar(data.config.command.INSTALL_ENV),
         },
         {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.BUILD_BACKEND
             ),
-            instance: new bar.BuildBackendBar(),
+            instance: new bar.GenerateBar(data.config.command.BUILD_BACKEND),
         },
         {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.BUILD_TARGET
             ),
-            instance: new bar.BuildTargetBar(),
+            instance: new bar.GenerateBar(data.config.command.BUILD_TARGET),
         },
         {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.OPEN_TARGET
             ),
-            instance: new bar.OpenTargetBar(),
+            instance: new bar.GenerateBar(data.config.command.OPEN_TARGET),
         },
         {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.OPEN_BACKEND
             ),
-            instance: new bar.OpenBackendBar(),
+            instance: new bar.GenerateBar(data.config.command.OPEN_BACKEND),
         },
         {
             key: data.config.getStatusbarKeyFromCommand(
                 data.config.command.SHOW_REPORT
             ),
-            instance: new bar.ShowReportBar(),
+            instance: new bar.GenerateBar(data.config.command.SHOW_REPORT),
         },
     ];
 

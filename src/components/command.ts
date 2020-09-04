@@ -8,8 +8,8 @@ interface CommandElement {
 class CommandBasic {
     constructor(
         private context: vscode.ExtensionContext,
-        private cmd: string,
-        private exeFunc?: Function
+        protected cmd: string,
+        protected exeFunc?: Function
     ) {
         this.registerCommand();
     }
