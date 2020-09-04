@@ -34,24 +34,24 @@ export class Config {
 
     constructor() {
         this.analysis(configInfo);
-        this.test();
+        // this.test();
     }
     private test() {
         let rootPath = data.rootPath();
 
         if (rootPath) {
             let filePath = path.join(rootPath, "config.json");
-            // const data1 = JSON.stringify(this.command, null, 4);
-            // const data2 = JSON.stringify(this.statusbar, null, 4);
+            const data1 = JSON.stringify(this.command, null, 4);
+            const data2 = JSON.stringify(this.statusbar, null, 4);
             const data3 = JSON.stringify(this.terminal, null, 4);
-            // const data4 = JSON.stringify(this.webview, null, 4);
+            const data4 = JSON.stringify(this.webview, null, 4);
             if (fs.existsSync(filePath)) {
                 fs.unlinkSync(filePath);
             }
-            // fs.appendFileSync(filePath, data1);
-            // fs.appendFileSync(filePath, data2);
+            fs.appendFileSync(filePath, data1);
+            fs.appendFileSync(filePath, data2);
             fs.appendFileSync(filePath, data3);
-            // fs.appendFileSync(filePath, data4);
+            fs.appendFileSync(filePath, data4);
         }
     }
     private analysis(config: any) {

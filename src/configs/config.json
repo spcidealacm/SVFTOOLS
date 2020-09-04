@@ -77,23 +77,20 @@
     ],
     "terminal": [
         {
-            "key": "TERMINAL.INSTALL.ENV",
-            "command": "SVFTOOLS.INSTALL.ENV",
             "title": "INSTALL SVF ENVIRONMENT",
+            "command": "SVFTOOLS.INSTALL.ENV",
             "exeHead": "source",
             "scriptPath": "./scripts/environment.sh"
         },
         {
-            "key": "TERMINAL.BUILD.TARGET",
-            "command": "SVFTOOLS.BUILD.TARGET",
             "title": "BUILD INPUT PROJECT",
+            "command": "SVFTOOLS.BUILD.TARGET",
             "exeHead": "source",
             "scriptPath": "./scripts/target.sh"
         },
         {
-            "key": "TERMINAL.BUILD.BAKCEND",
-            "command": "SVFTOOLS.BUILD.BACKEND",
             "title": "BUILD SVF BACKEND",
+            "command": "SVFTOOLS.BUILD.BACKEND",
             "exeHead": "source",
             "scriptPath": "./scripts/backend.sh"
         }

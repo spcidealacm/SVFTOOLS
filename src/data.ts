@@ -3,7 +3,6 @@ import { Config } from "./configs/config";
 import { CommandBasic, mcommand } from "./components/command";
 import { BarBasic, mbar } from "./components/statusbar";
 import { mterminal } from "./components/terminial";
-import { inherits } from "util";
 
 export let context: vscode.ExtensionContext;
 
