@@ -1,80 +1,101 @@
 {
     "command": {
-        "SVFTOOLS.OPEN": {
-            "key": "SVFTOOLS.OPEN",
-            "bar": {
-                "alignment": "left",
-                "priority": 1,
-                "status": [
-                    {
-                        "title": "$(files) OPEN SVF BACKEND",
-                        "color": ""
-                    },
-                    {
-                        "title": "$(files) OPEN INPUT PROJECT",
-                        "color": ""
-                    }
-                ]
-            },
-            "terminal": {
-                "title": "",
-                "exeHead": "",
-                "scriptPath": ""
-            }
+        "INSTALL_ENV": "SVFTOOLS.INSTALL.ENV",
+        "OPEN_TARGET": "SVFTOOLS.OPEN.TARGET",
+        "OPEN_BACKEND": "SVFTOOLS.OPEN.BACKEND",
+        "BUILD_BACKEND": "SVFTOOLS.BUILD.BACKEND",
+        "BUILD_TARGET": "SVFTOOLS.BUILD.TARGET",
+        "SHOW_REPORT": "SVFTOOLS.SHOW.REPORT"
+    },
+    "statusbar": [
+        {
+            "key": "BAR.INSTALL.ENV",
+            "command": "SVFTOOLS.INSTALL.ENV",
+            "alignment": "left",
+            "priority": 6,
+            "status": [
+                {
+                    "title": "$(extensions) INSTALL SVF ENVIRONMENT"
+                }
+            ]
         },
-        "SVFTOOLS.BUILD.BACKEND": {
-            "key": "SVFTOOLS.BUILD.BACKEND",
-            "bar": {
-                "alignment": "left",
-                "priority": 2,
-                "status": [
-                    {
-                        "title": "$(debug-start) BUILD SVF BACKEND",
-                        "color": ""
-                    }
-                ]
-            },
-            "terminal": {
-                "title": "BUILD SVF BACKEND",
-                "exeHead": "source",
-                "scriptPath": "./scripts/backend.sh"
-            }
+        {
+            "key": "BAR.OPEN.TARGET",
+            "command": "SVFTOOLS.OPEN.TARGET",
+            "alignment": "left",
+            "priority": 5,
+            "status": [
+                {
+                    "title": "$(files) OPEN INPUT TARGET"
+                }
+            ]
         },
-        "SVFTOOLS.BUILD.TARGET": {
-            "key": "SVFTOOLS.BUILD.TARGET",
-            "bar": {
-                "alignment": "left",
-                "priority": 3,
-                "status": [
-                    {
-                        "title": "$(debug-start) BUILD INPUT TARGET",
-                        "color": ""
-                    }
-                ]
-            },
-            "terminal": {
-                "title": "BUILD INPUT TARGET",
-                "exeHead": "source",
-                "scriptPath": "./scripts/target.sh"
-            }
+        {
+            "key": "BAR.OPEN.BACKEND",
+            "command": "SVFTOOLS.OPEN.BACKEND",
+            "alignment": "left",
+            "priority": 4,
+            "status": [
+                {
+                    "title": "$(files) OPEN SVF BACKEND"
+                }
+            ]
         },
-        "SVFTOOLS.INSTALL.ENV": {
-            "key": "SVFTOOLS.INSTALL.ENV",
-            "bar": {
-                "alignment": "left",
-                "priority": 4,
-                "status": [
-                    {
-                        "title": "$(extensions) INSTALL SVF ENVIRONMENT",
-                        "color": ""
-                    }
-                ]
-            },
-            "terminal": {
-                "title": "INSTALL SVF ENVIRONMENT",
-                "exeHead": "source",
-                "scriptPath": "./scripts/environment.sh"
-            }
+        {
+            "key": "BAR.BUILD.BACKEND",
+            "command": "SVFTOOLS.BUILD.BACKEND",
+            "alignment": "left",
+            "priority": 3,
+            "status": [
+                {
+                    "title": "$(debug-start) BUILD SVF BACKEND"
+                }
+            ]
+        },
+        {
+            "key": "BAR.BUILD.TARGET",
+            "command": "SVFTOOLS.BUILD.TARGET",
+            "alignment": "left",
+            "priority": 2,
+            "status": [
+                {
+                    "title": "$(debug-start) BUILD INPUT TARGET"
+                }
+            ]
+        },
+        {
+            "key": "BAR.SHOW.REPORT",
+            "command": "SVFTOOLS.SHOW.REPORT",
+            "alignment": "left",
+            "priority": 1,
+            "status": [
+                {
+                    "title": "$(beaker) TARGET REPORT"
+                }
+            ]
         }
-    }
+    ],
+    "terminal": [
+        {
+            "key": "TERMINAL.INSTALL.ENV",
+            "command": "SVFTOOLS.INSTALL.ENV",
+            "title": "INSTALL SVF ENVIRONMENT",
+            "exeHead": "source",
+            "scriptPath": "./scripts/environment.sh"
+        },
+        {
+            "key": "TERMINAL.BUILD.TARGET",
+            "command": "SVFTOOLS.BUILD.TARGET",
+            "title": "BUILD INPUT PROJECT",
+            "exeHead": "source",
+            "scriptPath": "./scripts/target.sh"
+        },
+        {
+            "key": "TERMINAL.BUILD.BAKCEND",
+            "command": "SVFTOOLS.BUILD.BACKEND",
+            "title": "BUILD SVF BACKEND",
+            "exeHead": "source",
+            "scriptPath": "./scripts/backend.sh"
+        }
+    ]
 }

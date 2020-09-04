@@ -1,62 +1,77 @@
 import * as vscode from "vscode";
-import * as store from "./store";
-import { extensionPath } from "./store";
-import { Data } from "./config";
 
-import path from "path";
+interface CommandElement {
+    key: string;
+    commandElement: CommandBasic;
+}
 
-function terminalFunc(key: store.ConfigKey) {
-    let config = store.GetConfigValue(key);
-    if (
-        config.terminal.title !== "" &&
-        config.terminal.scriptPath !== "" &&
-        config.terminal.exeHead !== ""
+class CommandBasic {
+    constructor(
+        private context: vscode.ExtensionContext,
+        private cmd: string,
+        private exeFunc?: Function
     ) {
-        let terminal = store.terminal.create(config.terminal.title);
-        if (terminal) {
-            terminal.show();
-            let scriptPath = config.terminal.scriptPath;
-            let exeHead = config.terminal.exeHead;
-            let absScriptPath = path.join(extensionPath(), scriptPath);
-            let sendText = `${exeHead} ${absScriptPath}`;
-            terminal.sendText(sendText);
+        this.registerCommand();
+    }
+    protected registerCommand() {
+        let disposable: vscode.Disposable = vscode.commands.registerCommand(
+            this.cmd,
+            () => {
+                this.exeFunc ? this.exeFunc() : this.Func();
+            }
+        );
+        this.context.subscriptions.push(disposable);
+    }
+
+    protected Func() {}
+}
+
+class CommandArray {
+    private list = new Array<CommandElement>();
+    public create(
+        context: vscode.ExtensionContext,
+        key: string,
+        cmd: string,
+        exeFunc: Function
+    ) {
+        if (this.find(key)) {
+            return undefined;
         }
+        let commandElement = new CommandBasic(context, cmd, exeFunc);
+        let item = { key: key, commandElement: commandElement };
+        this.list.push(item);
+        return commandElement;
+    }
+    public generate(key: string, instance: CommandBasic) {
+        if (this.find(key)) {
+            return -1;
+        }
+        let item = { key: key, commandElement: instance };
+        this.list.push(item);
+        return this.list.length;
+    }
+    public find(key: string) {
+        let flag = undefined;
+        this.list.some((element) => {
+            if (element.key === key) {
+                flag = element.commandElement;
+                return true;
+            }
+        });
+        return flag;
+    }
+    public exist(key: string): boolean {
+        let flag = false;
+        this.list.some((element) => {
+            if (element.key === key) {
+                flag = true;
+                return true;
+            }
+        });
+        return flag;
     }
 }
 
-export class SetEnvCommand extends store.CommandClass {
-    constructor() {
-        super(store.GetConfigValue(store.ConfigKey.SetEnv).key);
-    }
-    Func() {
-        terminalFunc(store.ConfigKey.SetEnv);
-    }
-}
+const mcommand = new CommandArray();
 
-export class BuildBackendCommand extends store.CommandClass {
-    constructor() {
-        super(store.GetConfigValue(store.ConfigKey.BuildBackend).key);
-    }
-    Func() {
-        terminalFunc(store.ConfigKey.BuildBackend);
-    }
-}
-
-export class BuildTargetCommand extends store.CommandClass {
-    constructor() {
-        super(store.GetConfigValue(store.ConfigKey.BuildTarget).key);
-    }
-    Func() {
-        terminalFunc(store.ConfigKey.BuildTarget);
-    }
-}
-export class OpenFileCommand extends store.CommandClass {
-    constructor() {
-        super(store.GetConfigValue(store.ConfigKey.OpenFile).key);
-    }
-    Func() {
-        // terminalFunc(store.ConfigKey.OpenFile);
-        vscode.window.showInformationMessage("HELLO", "YES");
-        new Data();
-    }
-}
+export { CommandBasic, mcommand };

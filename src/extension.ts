@@ -1,52 +1,84 @@
 import * as vscode from "vscode";
-import * as store from "./components/store";
-import * as command from "./components/command";
-import * as statusbar from "./components/statusbar";
+import * as data from "./data";
+import * as cmd from "./model/command";
+import * as bar from "./model/statusbar";
 
 export function activate(context: vscode.ExtensionContext) {
-    store.setContext(context);
-    let commandInfo = [
+    initial(context);
+}
+
+function initial(context: vscode.ExtensionContext) {
+    data.initial(context);
+    const command = [
         {
-            key: store.Key.SetEnv,
-            value: new command.SetEnvCommand(),
+            key: data.config.command.INSTALL_ENV,
+            instance: new cmd.SetEnvCommand(),
         },
         {
-            key: store.Key.BuildBackend,
-            value: new command.BuildBackendCommand(),
+            key: data.config.command.OPEN_TARGET,
+            instance: new cmd.OpenTargetCommand(),
         },
         {
-            key: store.Key.BuildTarget,
-            value: new command.BuildTargetCommand(),
+            key: data.config.command.OPEN_BACKEND,
+            instance: new cmd.OpenBackendCommand(),
         },
         {
-            key: store.Key.OpenFile,
-            value: new command.OpenFileCommand(),
+            key: data.config.command.BUILD_TARGET,
+            instance: new cmd.BuildTargetCommand(),
+        },
+        {
+            key: data.config.command.BUILD_BACKEND,
+            instance: new cmd.BuildBackendCommand(),
+        },
+        {
+            key: data.config.command.SHOW_REPORT,
+            instance: new cmd.ShowReportCommand(),
         },
     ];
-    let statusbarInfo = [
+    const statusbar = [
         {
-            key: store.Key.SetEnv,
-            value: new statusbar.SetEnvBar(),
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.INSTALL_ENV
+            ),
+            instance: new bar.SetEnvBar(),
         },
         {
-            key: store.Key.BuildBackend,
-            value: new statusbar.BuildBackendBar(),
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.BUILD_BACKEND
+            ),
+            instance: new bar.BuildBackendBar(),
         },
         {
-            key: store.Key.BuildTarget,
-            value: new statusbar.BuildTargetBar(),
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.BUILD_TARGET
+            ),
+            instance: new bar.BuildTargetBar(),
         },
         {
-            key: store.Key.OpenFile,
-            value: new statusbar.OpenFileBar(),
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.OPEN_TARGET
+            ),
+            instance: new bar.OpenTargetBar(),
+        },
+        {
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.OPEN_BACKEND
+            ),
+            instance: new bar.OpenBackendBar(),
+        },
+        {
+            key: data.config.getStatusbarKeyFromCommand(
+                data.config.command.SHOW_REPORT
+            ),
+            instance: new bar.ShowReportBar(),
         },
     ];
 
-    commandInfo.forEach((element) => {
-        store.command.generate(element.key, element.value);
+    command.forEach((element) => {
+        data.mcommand.generate(element.key, element.instance);
     });
-    statusbarInfo.forEach((element) => {
-        store.statusbar.generate(element.key, element.value);
+    statusbar.forEach((element) => {
+        data.mbar.generate(element.key, element.instance);
     });
 }
 

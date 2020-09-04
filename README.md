@@ -1,65 +1,34 @@
-# SVFTOOLS README
+# **<p align="center">SVF ANALYSIS TOOLS</p>**
 
-This is the README for your extension "SVFTOOLS". After writing up a brief description, we recommend including the following sections.
+<p align="center">
+<img src='https://github.com/spcidealacm/BugReport/blob/master/img/icon.png?raw=true' width='360'/>
+</p>
 
-## Features
+## **System: [Ubuntu 18.04 / 20.04](https://releases.ubuntu.com/20.04/)**
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## **User Instructions**
 
-For example if there is an image subfolder under your extension project workspace:
+**After install this extenison, some new bar will show at bottom.**
+<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/example.png?raw=true' width='1080'/>
 
-\!\[feature X\]\(images/feature-x.png\)
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/extension.png?raw=true' height='40'/>**  
+    **Install svf environment.**
+    The plug-in will automatically detect whether the background configuration is complete. If the plug-in is just installed or the background environment is damaged, this icon will appear. At the same time, other functions will be suspended.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/open_input.png?raw=true' height='40'/>**  
+    **Open Input Project.**
+    This function and the next function use the same button. The function will open the example.c file under _`INPUT_PROJECT`_. If the user is not currently in this directory, the project will be redirected first. When there is no example.c under _`INPUT_PROJECT`_, it will ask whether to configure this file. Choose Yes to configure and jump to this file.
 
-## Requirements
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/open_svf.png?raw=true' height='40'/>**  
+    **Open svf Backend.**
+    This function uses the same button as the previous function. It will open the configuration file svf-ex.cpp under svf backend. When the folder does not exist or _`svf-ex.cpp`_ does not exist, it will ask you if you need to reconfigure the backend. Selecting Yes will re-download the new svf backend file and display it.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/build_input.png?raw=true' height='40'/>**  
+    **Build Input Project.**
+    This button will only appear when _`INPUT_PROJECT`_ is opened and example.c exists. It can compile according to the rules of svf backend and generate error messages and static analysis graph information. The compilation process will appear in a Terminal.
 
-## Extension Settings
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/build_backend.png?raw=true' height='40'/>**  
+    **Build svf backend.** This button will only appear when the svf backend exists. Click this button after customizing the svf backend. It will compile and configure svf backend tools.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+-   **<img src='https://github.com/SVF-tools/WebSVF/blob/master/src/BugReport/docs/svf_analysis.png?raw=true' height='40'/>**  
+    **Show Analysis Report._(In the process of making...)_** This button will only appear after the INPUT_PROJECT compilation is successful, and it will display the compilation result in the form of a report.
