@@ -7,29 +7,37 @@ import { mterminal } from "./components/terminial";
 export let context: vscode.ExtensionContext;
 export let config: Config;
 
+// extension postion
 export const extensionPath = function () {
     return context.extensionPath;
 };
 
+// vscode workspace path
 export const rootPath = function () {
     return vscode.workspace.rootPath;
 };
 
+// system home path
 export const userHome = function () {
     return process.env.HOME || process.env.USERPROFILE;
 };
 
+// initial when extension active
 export function initial(value: vscode.ExtensionContext) {
-    context = value;
-    config = new Config();
+    context = value; // import context for all part use
+    config = new Config(); // json config will analysis
 }
 
+// basic command components. CommandBasic is a command Class. mcommand is a command Manager.
 export { CommandBasic, mcommand };
 
+//basic bar components. BarBasic is a bar Class. mabr is a bar Manager.
 export { BarBasic, mbar };
 
+//mterminal is a terminal Manager. it is very import for terminal manage.
 export { mterminal };
 
+// json config have "path", which need to recognize key in program. so if you add path to json config. you should add here to let program use.
 export const PathType = {
     TARGET_PATH: "TARGET_PATH",
     EXAMPLE_PATH: "EXAMPLE_PATH",

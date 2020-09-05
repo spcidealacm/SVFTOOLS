@@ -9,11 +9,15 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function initial(context: vscode.ExtensionContext) {
+    // data initial
     data.initial(context);
+    // command generate.
     const command = [
         {
             key: data.config.command.INSTALL_ENV,
-            instance: new cmd.modelCommand.TerminialCommand(data.config.command.INSTALL_ENV),
+            instance: new cmd.modelCommand.TerminialCommand(
+                data.config.command.INSTALL_ENV
+            ),
         },
         {
             key: data.config.command.OPEN_TARGET,
@@ -40,6 +44,7 @@ function initial(context: vscode.ExtensionContext) {
             instance: new cmd.ShowReportCommand(),
         },
     ];
+    // statusbar generate
     const statusbar = [
         {
             key: data.config.getStatusbarKeyFromCommand(
@@ -79,13 +84,21 @@ function initial(context: vscode.ExtensionContext) {
         },
     ];
 
+    // command register in manager
     command.forEach((element) => {
         data.mcommand.generate(element.key, element.instance);
     });
+    // statusbar register in manager
     statusbar.forEach((element) => {
         data.mbar.generate(element.key, element.instance);
     });
 
+    //some times, extension will open a target folder. it will load all extension again.
+    //so extension will forget what it should do before. the flag will remind extension what it should do.
+    checkFlag();
+}
+
+function checkFlag() {
     let flag = data.config.getPathInfo(data.PathType.TARGET_PATH);
     if (flag.openFlag && fs.existsSync(flag.openFlag)) {
         vscode.commands.executeCommand(data.config.command.OPEN_TARGET);
