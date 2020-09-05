@@ -29,3 +29,9 @@ export { CommandBasic, mcommand };
 export { BarBasic, mbar };
 
 export { mterminal };
+
+export const PathType = {
+    TARGET_PATH: "TARGET_PATH",
+    EXAMPLE_PATH: "EXAMPLE_PATH",
+    BACKEND_PATH: "BACKEND_PATH",
+};

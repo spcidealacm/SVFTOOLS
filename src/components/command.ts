@@ -72,6 +72,7 @@ class CommandArray {
     }
 }
 
+
 const mcommand = new CommandArray();
 
 export { CommandBasic, mcommand };

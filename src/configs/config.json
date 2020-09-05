@@ -77,22 +77,44 @@
     ],
     "terminal": [
         {
-            "title": "INSTALL SVF ENVIRONMENT",
+            "key": "INSTALL SVF ENVIRONMENT",
             "command": "SVFTOOLS.INSTALL.ENV",
             "exeHead": "source",
             "scriptPath": "./scripts/environment.sh"
         },
         {
-            "title": "BUILD INPUT PROJECT",
+            "key": "BUILD INPUT PROJECT",
             "command": "SVFTOOLS.BUILD.TARGET",
             "exeHead": "source",
             "scriptPath": "./scripts/target.sh"
         },
         {
-            "title": "BUILD SVF BACKEND",
+            "key": "BUILD SVF BACKEND",
             "command": "SVFTOOLS.BUILD.BACKEND",
             "exeHead": "source",
             "scriptPath": "./scripts/backend.sh"
+        }
+    ],
+    "path": [
+        {
+            "key": "TARGET_PATH",
+            "position": "home",
+            "folder": "INPUT_PROJECT",
+            "mainFile": "example.c",
+            "openFlag": "OpenTarget.flag"
+        },
+        {
+            "key": "EXAMPLE_PATH",
+            "position": "extension",
+            "folder": "example",
+            "mainFile": "example.c"
+        },
+        {
+            "key": "BACKEND_PATH",
+            "position": "home",
+            "folder": "SVF-example",
+            "mainFile": "src/svf-ex.cpp",
+            "openFlag": "OpenSVFEX.flag"
         }
     ]
 }

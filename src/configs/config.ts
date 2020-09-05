@@ -27,6 +27,11 @@ export class Config {
         return this._terminal;
     }
 
+    private _path = new Array();
+    public get path() {
+        return this._path;
+    }
+
     private _webview = new Array();
     public get webview() {
         return this._webview;
@@ -68,13 +73,16 @@ export class Config {
                 case "webview":
                     this._webview = config[element];
                     break;
+                case "path":
+                    this._path = config[element];
+                    break;
                 default:
                     break;
             }
         }
     }
 
-    public analysisBarInfo(statusbar: any[]) {
+    private analysisBarInfo(statusbar: any[]) {
         statusbar.forEach((element) => {
             element.alignment =
                 element.alignment === "left"
@@ -83,13 +91,59 @@ export class Config {
         });
     }
 
-    public analysisTerminalInfo(terminal: any[]) {
+    private analysisTerminalInfo(terminal: any[]) {
         terminal.forEach((element) => {
             element.script = `${element.exeHead} ${path.join(
                 data.extensionPath(),
                 element.scriptPath
             )}`;
         });
+    }
+
+    public analysisPathInfo(thepath: any[]): any[] {
+        // path need analysis when just use, it cannot just analysis only inisial.
+        let result = [...thepath]; // copy a new path info
+        result.forEach((element) => {
+            this.analysisPathInfoElement(element); // change on result itself
+        });
+        return result;
+    }
+
+    private analysisPathInfoElement(element: any) {
+        // change on element itself
+        switch (element.position) {
+            case "home":
+                element.position = data.userHome();
+                break;
+            case "extension":
+                element.position = data.extensionPath();
+                break;
+            case "root":
+                element.position = data.rootPath(); // it should analysised by using time.
+                break;
+            default:
+                break;
+        }
+        element.folder = path.join(element.position, element.folder);
+        element.mainFile = path.join(element.folder, element.mainFile);
+        if (element.openFlag) {
+            element.openFlag = path.join(
+                data.extensionPath(),
+                element.openFlag
+            );
+        }
+    }
+
+    public getPathInfo(key: string) {
+        console.log("get Path");
+        let result = this.getElementInfo(this.path, key); // copy a new element.
+        let element = { ...result };
+        if (element) {
+            this.analysisPathInfoElement(element); // change on new element
+        } else {
+            console.log(`[ERROR]: getPathInfo element is ${element}`);
+        }
+        return element;
     }
 
     public getTerminialInfo(key: string) {

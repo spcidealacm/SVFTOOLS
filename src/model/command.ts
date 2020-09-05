@@ -1,8 +1,10 @@
 import * as vscode from "vscode";
 import * as data from "../data";
+import * as fs from "fs";
+import * as path from "path";
+import { execSync } from "child_process";
 
 interface TerInfo {
-    key: string;
     title: string;
     script: string;
 }
@@ -17,8 +19,7 @@ function terminal(command: string) {
     let info = data.config.getTerminialInfoFromCommand(command)[0];
     if (info) {
         let terInfo: TerInfo = {
-            key: info.key,
-            title: info.title,
+            title: info.key,
             script: info.script,
         };
         startTerminal(terInfo);
@@ -37,34 +38,53 @@ export class OpenFileCommand extends data.CommandBasic {
     constructor(command: string) {
         super(data.context, command);
     }
-    Func() {
-        // vscode.window.showInformationMessage("OpenFile", "YES");
+    Func() {}
+    ShowFolderOnWorkspace(folderPath: string) {
+        if (fs.existsSync(folderPath)) {
+            let stat = fs.statSync(folderPath);
+            if (stat.isDirectory()) {
+                let uri = vscode.Uri.file(folderPath);
+                vscode.commands.executeCommand("vscode.openFolder", uri);
+            }
+        }
     }
-}
-export class OpenTargetCommand extends OpenFileCommand {
-    constructor() {
-        super(data.config.command.OPEN_TARGET);
+    ShowFileInTextDoc(filePath: string) {
+        if (fs.existsSync(filePath)) {
+            let stat = fs.statSync(filePath);
+            if (stat.isFile()) {
+                vscode.window.showTextDocument(vscode.Uri.file(filePath));
+            }
+        }
     }
-    Func() {
-        super.Func();
-        vscode.window.showInformationMessage("TARGET", "YES");
+    CreateFolder(folderPath: string) {
+        if (!fs.existsSync(folderPath)) {
+            let upFolderPath = path.resolve(folderPath, "..");
+            if (!fs.existsSync(upFolderPath)) {
+                this.CreateFolder(upFolderPath);
+            } else {
+                fs.mkdirSync(folderPath);
+            }
+        }
     }
-}
-export class OpenBackendCommand extends OpenFileCommand {
-    constructor() {
-        super(data.config.command.OPEN_BACKEND);
+    CreateFile(filePath: string) {
+        if (!fs.existsSync(filePath)) {
+            let folderPath = path.resolve(filePath, "..");
+            this.CreateFolder(folderPath);
+        }
+        fs.writeFileSync(filePath, "");
     }
-    Func() {
-        super.Func();
-        vscode.window.showInformationMessage("BACKEND", "YES");
+    Copy(from: string, to: string) {
+        if (fs.existsSync(from)) {
+            let upFolder = path.resolve(to, "..");
+            this.CreateFolder(upFolder);
+            execSync(`cp -rf ${from} ${to}`);
+        } else {
+            console.log(`[ERROR]: CopyFile form: ${from} is not exist`);
+        }
     }
-}
-
-export class ShowReportCommand extends data.CommandBasic {
-    constructor() {
-        super(data.context, data.config.command.SHOW_REPORT);
-    }
-    Func() {
-        vscode.window.showInformationMessage("SHOW REPORT", "YES");
+    Delete(thePath: string) {
+        if (fs.existsSync(thePath)) {
+            execSync(`rm -rf ${thePath}`);
+        }
     }
 }
