@@ -11,14 +11,23 @@ export class OpenTargetCommand extends modelCommand.OpenFileCommand {
         super(data.config.command.OPEN_TARGET);
     }
     Func() {
-        let targetInfo = data.config.getPathInfo(data.PathType.TARGET_PATH); // get target info
+        /*{
+            "key": "TARGET_PATH"
+            "position": user home
+            "folder": user home/INPUT_PROJECT
+            "mainFile": user home/INPUT_PROJECT/example.c
+            "openFlag": extension path/OpenTarget.flag
+        }*/
+        let targetInfo = data.config.getPathInfo(
+            data.config.pathType.TARGET_PATH
+        ); // get target info
         console.log("targetInfo:", targetInfo);
         if (targetInfo) {
             // if file no exit
             if (!fs.existsSync(targetInfo.mainFile)) {
                 // get example info
                 let exampleInfo = data.config.getPathInfo(
-                    data.PathType.EXAMPLE_PATH
+                    data.config.pathType.EXAMPLE_PATH
                 );
                 // copy example file to target
                 this.Copy(exampleInfo.mainFile, targetInfo.mainFile);
@@ -43,7 +52,50 @@ export class OpenBackendCommand extends modelCommand.OpenFileCommand {
         super(data.config.command.OPEN_BACKEND);
     }
     Func() {
-        vscode.window.showInformationMessage("BACKEND", "YES");
+        /*{
+            "key": "BACKEND_PATH"
+            "position": user home
+            "folder": user home/SVF-example
+            "mainFile": user home/SVF-example/src/svf-ex.cpp
+            "openFlag": extension path/OpenSVFEX.flag
+        }*/
+        let backendInfo = data.config.getPathInfo(
+            data.config.pathType.BACKEND_PATH
+        );
+        let filePath = backendInfo.mainFile;
+        if (fs.existsSync(filePath)) {
+            this.ShowFileInTextDoc(filePath);
+        } else {
+            let folderPath = backendInfo.folder;
+            if (fs.existsSync(folderPath)) {
+                vscode.window
+                    .showInformationMessage(
+                        "Cannot find main file in backend, do you want to download a new one?",
+                        "Yes",
+                        "NO"
+                    )
+                    .then((result) => {
+                        if (result === "YES") {
+                            execSync(`rm -rf ${folderPath}`);
+                            execSync("git clone https://github.com/SVF-tools/SVF-example.git");
+                            this.ShowFileInTextDoc(filePath);
+                        }
+                    });
+            } else {
+                vscode.window
+                    .showInformationMessage(
+                        "Cannot find backend folder, do you want to download it?",
+                        "Yes",
+                        "NO"
+                    )
+                    .then((result) => {
+                        if (result === "YES") {
+                            execSync("git clone https://github.com/SVF-tools/SVF-example.git");
+                            this.ShowFileInTextDoc(filePath);
+                        }
+                    });
+            }
+        }
     }
 }
 

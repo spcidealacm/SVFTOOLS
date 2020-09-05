@@ -36,10 +36,3 @@ export { BarBasic, mbar };
 
 //mterminal is a terminal Manager. it is very import for terminal manage.
 export { mterminal };
-
-// json config have "path", which need to recognize key in program. so if you add path to json config. you should add here to let program use.
-export const PathType = {
-    TARGET_PATH: "TARGET_PATH",
-    EXAMPLE_PATH: "EXAMPLE_PATH",
-    BACKEND_PATH: "BACKEND_PATH",
-};

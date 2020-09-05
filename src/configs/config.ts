@@ -13,8 +13,19 @@ export class Config {
         BUILD_TARGET: configInfo.command.BUILD_TARGET,
         SHOW_REPORT: configInfo.command.SHOW_REPORT,
     };
+
+    // json config have "path", which need to recognize key in program. so if you add path to json config. you should add here to let program use.
+    private _pathType = {
+        TARGET_PATH: "TARGET_PATH",
+        EXAMPLE_PATH: "EXAMPLE_PATH",
+        BACKEND_PATH: "BACKEND_PATH",
+    };
     public get command() {
         return this._command;
+    }
+
+    public get pathType() {
+        return this._pathType;
     }
 
     private _statusbar = new Array();

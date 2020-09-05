@@ -99,9 +99,19 @@ function initial(context: vscode.ExtensionContext) {
 }
 
 function checkFlag() {
-    let flag = data.config.getPathInfo(data.PathType.TARGET_PATH);
-    if (flag.openFlag && fs.existsSync(flag.openFlag)) {
+    let targetPathInfo = data.config.getPathInfo(
+        data.config.pathType.TARGET_PATH
+    );
+    let backednPathInfo = data.config.getPathInfo(
+        data.config.pathType.BACKEND_PATH
+    );
+
+    if (targetPathInfo.openFlag && fs.existsSync(targetPathInfo.openFlag)) {
         vscode.commands.executeCommand(data.config.command.OPEN_TARGET);
+    }
+
+    if (backednPathInfo.openFlag && fs.existsSync(backednPathInfo.openFlag)) {
+        vscode.commands.executeCommand(data.config.command.OPEN_BACKEND);
     }
 }
 
