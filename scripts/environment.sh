@@ -1,11 +1,13 @@
-PROJECTHOME=$(pwd)
-sysOS=$(uname -s)
 function highlight() {
     echo -e "\033[1;45;37m$1\033[0m"
 }
+
 function errorshow() {
     echo -e "\033[1;41;37m$1\033[0m"
 }
+
+PROJECTHOME=$(pwd)
+sysOS=$(uname -s)
 
 if [[ $sysOS == "Linux" ]]; then
 
@@ -15,7 +17,9 @@ if [[ $sysOS == "Linux" ]]; then
     echo "System: ${release_name} ${release_num}"
 
     if [ $release_name == "Ubuntu" ]; then
+
         if [ $release_num == 18.04 ] || [ $release_num == 20.04 ]; then
+
             # for basic tools
             sudo apt-get update
             # sudo apt-get upgrade -y
@@ -35,6 +39,7 @@ if [[ $sysOS == "Linux" ]]; then
             make
 
             highlight "[BUILD BACKEND DONE.]"
+
         else
             errorshow "CANNOT SUPPORT YOU SYSTEM. SUPPORT UBUNTU 18.04 or 20.04."
         fi

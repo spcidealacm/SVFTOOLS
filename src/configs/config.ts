@@ -5,6 +5,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 export class Config {
+
     private _command = {
         INSTALL_ENV: configInfo.command.INSTALL_ENV,
         OPEN_TARGET: configInfo.command.OPEN_TARGET,
@@ -14,13 +15,17 @@ export class Config {
         SHOW_REPORT: configInfo.command.SHOW_REPORT,
     };
 
-    /* json config have "path", which need to recognize key in program. 
-    so if you add path to json config. you should add here to let program use.*/
     private _pathType = {
         TARGET_PATH: "TARGET_PATH",
         EXAMPLE_PATH: "EXAMPLE_PATH",
         BACKEND_PATH: "BACKEND_PATH",
     };
+
+    private _statusbar = new Array();
+    private _terminal = new Array();
+    private _path = new Array();
+    private _webview = new Array();
+
     public get command() {
         return this._command;
     }
@@ -29,22 +34,21 @@ export class Config {
         return this._pathType;
     }
 
-    private _statusbar = new Array();
+
     public get statusbar() {
         return this._statusbar;
     }
 
-    private _terminal = new Array();
+
     public get terminal() {
         return this._terminal;
     }
 
-    private _path = new Array();
+
     public get path() {
         return this._path;
     }
 
-    private _webview = new Array();
     public get webview() {
         return this._webview;
     }
@@ -53,6 +57,7 @@ export class Config {
         this.analysis(configInfo);
         // this.test();
     }
+
     private test() {
         let rootPath = data.rootPath();
 
@@ -72,6 +77,7 @@ export class Config {
         }
     }
     private analysis(config: any) {
+
         for (let element in config) {
             switch (element) {
                 case "statusbar":
@@ -95,29 +101,35 @@ export class Config {
     }
 
     private analysisBarInfo(statusbar: any[]) {
+
         statusbar.forEach((element) => {
             element.alignment =
                 element.alignment === "left"
                     ? vscode.StatusBarAlignment.Left
                     : vscode.StatusBarAlignment.Right;
         });
+
     }
 
     private analysisTerminalInfo(terminal: any[]) {
+
         terminal.forEach((element) => {
             element.script = `${element.exeHead} ${path.join(
                 data.extensionPath(),
                 element.scriptPath
             )}`;
         });
+
     }
 
     public analysisPathInfo(thepath: any[]): any[] {
         // path need analysis when just use, it cannot just analysis only inisial.
         let result = [...thepath]; // copy a new path info
+
         result.forEach((element) => {
             this.analysisPathInfoElement(element); // change on result itself
         });
+
         return result;
     }
 
@@ -136,8 +148,10 @@ export class Config {
             default:
                 break;
         }
+
         element.folder = path.join(element.position, element.folder);
         element.mainFile = path.join(element.folder, element.mainFile);
+
         if (element.openFlag) {
             element.openFlag = path.join(
                 data.extensionPath(),
@@ -147,29 +161,28 @@ export class Config {
     }
 
     public getPathInfo(key: string) {
-        console.log("get Path");
+
         let result = this.getElementInfo(this.path, key); // copy a new element.
-        let element = { ...result };
+        let element = { ...result };// deep copy
+
         if (element) {
             this.analysisPathInfoElement(element); // change on new element
         } else {
             console.log(`[ERROR]: getPathInfo element is ${element}`);
         }
+
         return element;
     }
 
     public getTerminialInfo(key: string) {
-        console.log("get Terminial");
         return this.getElementInfo(this.terminal, key);
     }
 
     public getStatusbarInfo(key: string) {
-        console.log("get Statusbar");
         return this.getElementInfo(this.statusbar, key);
     }
 
     public getWeibviewInfo(key: string) {
-        console.log("get Weibview");
         return this.getElementInfo(this.webview, key);
     }
 
@@ -180,16 +193,13 @@ export class Config {
         switch (result.length) {
             case 0:
                 return undefined;
-                break;
             case 1:
                 return result[0];
-                break;
             default:
                 console.log(
                     `[ERROR]: getElement key result: ${result} should only one element.`
                 );
                 return result[0];
-                break;
         }
     }
 

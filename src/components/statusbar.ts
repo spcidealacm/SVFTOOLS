@@ -6,12 +6,11 @@ interface BarElement {
 }
 
 class BarBasic {
+
     protected readonly bar: vscode.StatusBarItem;
-    constructor(
-        context: vscode.ExtensionContext,
-        alignment?: vscode.StatusBarAlignment,
-        priority?: number
-    ) {
+
+    constructor(context: vscode.ExtensionContext, alignment?: vscode.StatusBarAlignment, priority?: number) {
+
         this.bar = vscode.window.createStatusBarItem(alignment, priority);
         context.subscriptions.push(this.bar);
     }
@@ -32,12 +31,7 @@ class BarBasic {
         show ? this.bar.show() : this.bar.hide();
     }
 
-    public setBar(
-        command?: string | vscode.Command,
-        title?: string,
-        show?: boolean,
-        color?: string | vscode.ThemeColor
-    ) {
+    public setBar(command?: string | vscode.Command, title?: string, show?: boolean, color?: string | vscode.ThemeColor) {
         if (command) {
             this.setCommand(command);
         }
@@ -54,72 +48,97 @@ class BarBasic {
 }
 
 class BarArray {
-    private list = new Array<BarElement>();
-    constructor() {}
 
-    public create(
-        context: vscode.ExtensionContext,
-        key: string,
-        alignment?: vscode.StatusBarAlignment,
-        priority?: number
-    ) {
+    private list = new Array<BarElement>();
+    constructor() { }
+
+    public create(context: vscode.ExtensionContext, key: string, alignment?: vscode.StatusBarAlignment, priority?: number) {
+
         if (this.find(key)) {
             return undefined;
         }
+
         let bar = new BarBasic(context, alignment, priority);
         let item = { key: key, barElement: bar };
         this.list.push(item);
+
         return bar;
     }
 
     public generate(key: string, instance: BarBasic) {
+
         if (this.find(key)) {
             return -1;
         }
+
         let item = { key: key, barElement: instance };
         this.list.push(item);
+
         return this.list.length;
     }
+
     public find(key: string) {
+
         let flag = undefined;
+
         this.list.some((element) => {
+
             if (element.key === key) {
                 flag = element.barElement;
                 return true;
             }
+
         });
+
         return flag;
     }
+
     public exist(key: string): boolean {
+
         let flag = false;
+
         this.list.some((element) => {
+
             if (element.key === key) {
                 flag = true;
                 return true;
             }
+
         });
+
         return flag;
     }
+
     public hide(key: string) {
+
         let flag = false;
+
         this.list.some((element) => {
+
             if (element.key === key) {
                 element.barElement.setShow(false);
                 flag = true;
                 return true;
             }
+
         });
         return flag;
     }
+
     public show(key: string) {
+
         let flag = false;
+
         this.list.some((element) => {
+
             if (element.key === key) {
                 element.barElement.setShow(true);
                 flag = true;
                 return true;
             }
+
         });
+
         return flag;
     }
 }

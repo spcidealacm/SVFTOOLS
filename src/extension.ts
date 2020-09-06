@@ -97,7 +97,7 @@ function initial(context: vscode.ExtensionContext) {
     so extension will forget what it should do before. the flag will remind extension what it should do.*/
     checkFlag();
 
-    /*This is for developer get all vscode current commands in extension path commands.log. 
+    /*This is for developer get all vscode current commands in extension path commands.log.
     it should not use for finial edition*/
     data.getCommands();
 }

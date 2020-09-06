@@ -22,7 +22,7 @@ export class OpenTargetCommand extends modelCommand.OpenFileCommand {
         let targetInfo = data.config.getPathInfo(
             data.config.pathType.TARGET_PATH
         ); // get target info
-        
+
         console.log("targetInfo:", targetInfo);
         if (targetInfo) {
             // if file no exit
