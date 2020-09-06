@@ -27,7 +27,7 @@ if [[ $sysOS == "Linux" ]]; then
             sudo pip3 install pygraphviz
             curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
             sudo apt install nodejs
-            npm install -g npm
+            sudo npm install -g npm
 
             # for svf build
             npm i svf-lib --prefix ${HOME}
