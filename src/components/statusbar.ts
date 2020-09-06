@@ -32,18 +32,12 @@ class BarBasic {
     }
 
     public setBar(command?: string | vscode.Command, title?: string, show?: boolean, color?: string | vscode.ThemeColor) {
-        if (command) {
-            this.setCommand(command);
-        }
-        if (title) {
-            this.setTitle(title);
-        }
-        if (color) {
-            this.setColor(color);
-        }
-        if (show !== undefined) {
-            this.setShow(show);
-        }
+
+        if (command) { this.setCommand(command); }
+        if (title) { this.setTitle(title); }
+        if (color) { this.setColor(color); }
+        if (show !== undefined) { this.setShow(show); }
+
     }
 }
 
@@ -54,9 +48,7 @@ class BarArray {
 
     public create(context: vscode.ExtensionContext, key: string, alignment?: vscode.StatusBarAlignment, priority?: number) {
 
-        if (this.find(key)) {
-            return undefined;
-        }
+        if (this.find(key)) { return undefined; }
 
         let bar = new BarBasic(context, alignment, priority);
         let item = { key: key, barElement: bar };
@@ -67,9 +59,7 @@ class BarArray {
 
     public generate(key: string, instance: BarBasic) {
 
-        if (this.find(key)) {
-            return -1;
-        }
+        if (this.find(key)) { return -1; }
 
         let item = { key: key, barElement: instance };
         this.list.push(item);
