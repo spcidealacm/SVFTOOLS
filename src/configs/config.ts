@@ -14,7 +14,8 @@ export class Config {
         SHOW_REPORT: configInfo.command.SHOW_REPORT,
     };
 
-    // json config have "path", which need to recognize key in program. so if you add path to json config. you should add here to let program use.
+    /* json config have "path", which need to recognize key in program. 
+    so if you add path to json config. you should add here to let program use.*/
     private _pathType = {
         TARGET_PATH: "TARGET_PATH",
         EXAMPLE_PATH: "EXAMPLE_PATH",

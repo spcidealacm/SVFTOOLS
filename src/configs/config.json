@@ -31,10 +31,21 @@
             ]
         },
         {
+            "key": "BAR.BUILD.TARGET",
+            "command": "SVFTOOLS.BUILD.TARGET",
+            "alignment": "left",
+            "priority": 4,
+            "status": [
+                {
+                    "title": "$(debug-start) BUILD INPUT TARGET"
+                }
+            ]
+        },
+        {
             "key": "BAR.OPEN.BACKEND",
             "command": "SVFTOOLS.OPEN.BACKEND",
             "alignment": "left",
-            "priority": 4,
+            "priority": 3,
             "status": [
                 {
                     "title": "$(files) OPEN SVF BACKEND"
@@ -45,21 +56,10 @@
             "key": "BAR.BUILD.BACKEND",
             "command": "SVFTOOLS.BUILD.BACKEND",
             "alignment": "left",
-            "priority": 3,
-            "status": [
-                {
-                    "title": "$(debug-start) BUILD SVF BACKEND"
-                }
-            ]
-        },
-        {
-            "key": "BAR.BUILD.TARGET",
-            "command": "SVFTOOLS.BUILD.TARGET",
-            "alignment": "left",
             "priority": 2,
             "status": [
                 {
-                    "title": "$(debug-start) BUILD INPUT TARGET"
+                    "title": "$(debug-start) BUILD SVF BACKEND"
                 }
             ]
         },

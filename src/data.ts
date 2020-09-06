@@ -3,6 +3,8 @@ import { Config } from "./configs/config";
 import { CommandBasic, mcommand } from "./components/command";
 import { BarBasic, mbar } from "./components/statusbar";
 import { mterminal } from "./components/terminial";
+import * as fs from "fs";
+import * as path from "path";
 
 export let context: vscode.ExtensionContext;
 export let config: Config;
@@ -36,3 +38,13 @@ export { BarBasic, mbar };
 
 //mterminal is a terminal Manager. it is very import for terminal manage.
 export { mterminal };
+
+export function getCommands() {
+    vscode.commands.getCommands().then((result) => {
+        let commands: string = "";
+        result.forEach((info) => {
+            commands += info + "\n";
+        });
+        fs.writeFileSync(`${path.join(extensionPath(), "command.log")}`, commands);
+    });
+}

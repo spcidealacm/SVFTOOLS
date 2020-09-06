@@ -93,9 +93,13 @@ function initial(context: vscode.ExtensionContext) {
         data.mbar.generate(element.key, element.instance);
     });
 
-    //some times, extension will open a target folder. it will load all extension again.
-    //so extension will forget what it should do before. the flag will remind extension what it should do.
+    /*some times, extension will open a target folder. it will load all extension again.
+    so extension will forget what it should do before. the flag will remind extension what it should do.*/
     checkFlag();
+
+    /*This is for developer get all vscode current commands in extension path commands.log. 
+    it should not use for finial edition*/
+    data.getCommands();
 }
 
 function checkFlag() {
@@ -115,4 +119,4 @@ function checkFlag() {
     }
 }
 
-export function deactivate() {}
+export function deactivate() { }

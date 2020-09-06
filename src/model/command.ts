@@ -38,7 +38,7 @@ export class OpenFileCommand extends data.CommandBasic {
     constructor(command: string) {
         super(data.context, command);
     }
-    Func() {}
+    Func() { }
     ShowFolderOnWorkspace(folderPath: string) {
         if (fs.existsSync(folderPath)) {
             let stat = fs.statSync(folderPath);
@@ -49,6 +49,8 @@ export class OpenFileCommand extends data.CommandBasic {
         }
     }
     ShowFileInTextDoc(filePath: string) {
+        vscode.commands.executeCommand("workbench.files.action.focusFilesExplorer");
+        data.mterminal.hide();
         if (fs.existsSync(filePath)) {
             let stat = fs.statSync(filePath);
             if (stat.isFile()) {

@@ -71,6 +71,12 @@ class TerminalArray {
         });
         return flag;
     }
+
+    public hide() {
+        vscode.window.terminals.forEach((element) => {
+            element.hide();
+        });
+    }
 }
 
 const mterminal = new TerminalArray();
