@@ -1,10 +1,51 @@
 import * as vscode from "vscode";
 import * as data from "../data";
 import * as fs from "fs";
+import * as path from "path";
 import { execSync } from "child_process";
 import * as modelCommand from "../model/command";
 
 export { modelCommand };
+
+export class InstallSVFEnvironment extends modelCommand.TerminialCommand {
+    constructor() {
+        super(data.config.command.INSTALL_ENV);
+    }
+    Func() {
+        let backendinfo = data.config.getPathInfo(data.config.pathType.BACKEND_PATH);
+        if (fs.existsSync(backendinfo.folder)) {
+            vscode.window.showInformationMessage(
+                "A backend folder is detected, do you use the original settings? (Note: You can find backup in ~/SVFBackup)",
+                "RETAIN",
+                "BACKUP"
+            ).then((result) => {
+                switch (result) {
+                    case "RETAIN":
+                        super.Func();
+                        break;
+                    case "BACKUP":
+                        console.log(`time=$(date "+%Y-%m-%d-%H-%M-%S")&&mv ${backendinfo.folder} ${backendinfo.folder}.$time.bak`);
+                        let backupFolder = path.join(backendinfo.position, "SVFBackup");
+                        if (!fs.existsSync(backupFolder)) {
+                            fs.mkdirSync(backupFolder);
+                        }
+                        let folderName = path.basename(backendinfo.folder);
+                        let backupFolderPath = path.join(backupFolder, folderName);
+                        console.log(`time=$(date "+%Y-%m-%d-%H-%M-%S")&&mv ${backendinfo.folder} ${backupFolderPath}.$time.bak`);
+                        execSync(`time=$(date "+%Y-%m-%d-%H-%M-%S")&&mv ${backendinfo.folder} ${backupFolderPath}.$time.bak`);
+                        super.Func();
+                        break;
+                    default:
+                        break;
+                }
+
+            });
+        } else {
+            super.Func();
+        }
+
+    }
+}
 
 export class OpenTargetCommand extends modelCommand.OpenFileCommand {
     constructor() {

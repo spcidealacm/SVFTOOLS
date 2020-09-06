@@ -15,9 +15,7 @@ function initial(context: vscode.ExtensionContext) {
     const command = [
         {
             key: data.config.command.INSTALL_ENV,
-            instance: new cmd.modelCommand.TerminialCommand(
-                data.config.command.INSTALL_ENV
-            ),
+            instance: new cmd.InstallSVFEnvironment(),
         },
         {
             key: data.config.command.OPEN_TARGET,

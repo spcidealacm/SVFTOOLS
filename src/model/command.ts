@@ -43,6 +43,7 @@ export class TerminialCommand extends data.CommandBasic {
         terminal(this.cmd);
     }
 }
+
 export class OpenFileCommand extends data.CommandBasic {
 
     constructor(command: string) {
