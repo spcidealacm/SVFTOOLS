@@ -3,6 +3,7 @@ import { Config } from "./configs/config";
 import { CommandBasic, mcommand } from "./components/command";
 import { BarBasic, mbar } from "./components/statusbar";
 import { mterminal } from "./components/terminial";
+import { RgisterTreeDataProvider } from "./components/treeview";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -38,6 +39,8 @@ export { BarBasic, mbar };
 
 //mterminal is a terminal Manager. it is very import for terminal manage.
 export { mterminal };
+
+export { RgisterTreeDataProvider };
 
 export function getCommands() {
     vscode.commands.getCommands().then((result) => {

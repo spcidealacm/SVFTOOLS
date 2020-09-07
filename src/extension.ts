@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as data from "./data";
-import * as cmd from "./tools/command";
+import * as cmd from "./model/command";
 import * as bar from "./model/statusbar";
 import * as fs from "fs";
 
@@ -27,13 +27,13 @@ function initial(context: vscode.ExtensionContext) {
         },
         {
             key: data.config.command.BUILD_TARGET,
-            instance: new cmd.modelCommand.TerminialCommand(
+            instance: new cmd.TerminialCommand(
                 data.config.command.BUILD_TARGET
             ),
         },
         {
             key: data.config.command.BUILD_BACKEND,
-            instance: new cmd.modelCommand.TerminialCommand(
+            instance: new cmd.TerminialCommand(
                 data.config.command.BUILD_BACKEND
             ),
         },
@@ -91,13 +91,16 @@ function initial(context: vscode.ExtensionContext) {
         data.mbar.generate(element.key, element.instance);
     });
 
+    let backendInfo = data.config.getPathInfo(data.config.pathType.BACKEND_PATH);
+    new data.RgisterTreeDataProvider(backendInfo.key, backendInfo.folder);
+
     /*some times, extension will open a target folder. it will load all extension again.
     so extension will forget what it should do before. the flag will remind extension what it should do.*/
     checkFlag();
 
     /*This is for developer get all vscode current commands in extension path commands.log.
     it should not use for finial edition*/
-    data.getCommands();
+    // data.getCommands();
 }
 
 function checkFlag() {
