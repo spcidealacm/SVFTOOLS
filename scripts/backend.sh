@@ -12,3 +12,9 @@ cmake .
 make
 
 highlight "[BUILD BACKEND DONE.]"
+
+cd ~
+script="backend.sh"
+if [[ -f $script ]]; then
+    rm $script
+fi

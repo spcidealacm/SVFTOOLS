@@ -17,13 +17,13 @@ class TerminalArray {
 
     }
 
-    public create(title: string) {
+    public create(title: string, shellPath?: string, shellArg?: string | string[]) {
 
         if (this.exist(title)) {
             return this.find(title);
         }
 
-        let terminal = vscode.window.createTerminal(title);
+        let terminal = vscode.window.createTerminal(title, shellPath, shellArg);
         let item = { key: title, terminal: terminal };
         this.list.push(item);
 

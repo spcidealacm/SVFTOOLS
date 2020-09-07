@@ -60,3 +60,21 @@ if [[ $sysOS == "Linux" ]]; then
 else
     errorshow "CANNOT SUPPORT YOU SYSTEM. SUPPORT UBUNTU 18.04 or 20.04."
 fi
+
+cd ~
+script="environment.sh"
+if [[ -f $script ]]; then
+    rm $script
+fi
+
+backup="SVFBackup"
+if [[ -d $backup ]]; then
+    cd $backup
+    count=`ls | wc -w`
+    # echo "Backup count: ${count}"
+    if [[ $count > 3 ]]; then
+        cd ~
+        # echo "Up to limit. Release all backup."
+        rm -rf $backup
+    fi
+fi

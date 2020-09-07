@@ -6,17 +6,29 @@ import { execSync } from "child_process";
 
 interface TerInfo {
     title: string;
+    exeHead: string;
+    scriptPath: string;
     script: string;
 }
 function terminal(command: string) {
 
     function startTerminal(info: TerInfo) {
-
+        let scriptPath = info.script.split(" ")[1];
+        let file = path.basename(scriptPath);
+        console.log(scriptPath);
+        if (fs.existsSync(`~/${file}`)) {
+            execSync(`rm ~/${file}`);
+        }
+        execSync(`cp ${scriptPath} ~/`);
+        let home = data.userHome();
+        if (!home) { return; }
+        let newScriptPath = `~/${file}`;
+        let script = `${info.exeHead} ${newScriptPath}`;
         let terminal = data.mterminal.create(info.title);
 
         if (terminal) {
             terminal.show();
-            terminal.sendText(info.script);
+            terminal.sendText(script);
         }
     }
 
@@ -26,6 +38,8 @@ function terminal(command: string) {
 
         let terInfo: TerInfo = {
             title: info.key,
+            exeHead: info.exeHead,
+            scriptPath: info.scriptPath,
             script: info.script,
         };
 

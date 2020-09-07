@@ -38,3 +38,9 @@ if [ -f ${fileName%%.*}.bc ]; then
 else
     errorshow "[COMPILE JOB ERROR.]"
 fi
+
+cd ~
+script="target.sh"
+if [[ -f $script ]]; then
+    rm $script
+fi
