@@ -28,7 +28,7 @@ fi
 
 if [ -f ${fileName%%.*}.bc ]; then
 
-    ~/SVF-example/bin/svf-ex ${fileName%%.*}.bc 1>${fileName%%.*}.log 2>${fileName%%.*}.error.log
+    ~/SVF-example/bin/svf-ex ${fileName%%.*}.bc 1>${fileName%%.*}.log 2>${fileName%%.*}.bug.log
     mkdir ${folder}
     mv *.dot ./${folder}/
     mkdir ${Log}

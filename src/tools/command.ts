@@ -15,15 +15,15 @@ export class InstallSVFEnvironment extends modelCommand.TerminialCommand {
         let backendinfo = data.config.getPathInfo(data.config.pathType.BACKEND_PATH);
         if (fs.existsSync(backendinfo.folder)) {
             vscode.window.showInformationMessage(
-                "A backend folder is detected, do you use the original settings? (Note: You can find backup in ~/SVFBackup)",
-                "RETAIN",
-                "BACKUP"
+                "A backend folder is detected, do you use the original settings? (Note: Note that choosing No will delete the original configuration.)",
+                "YES",
+                "NO"
             ).then((result) => {
                 switch (result) {
-                    case "RETAIN":
+                    case "YES":
                         super.Func();
                         break;
-                    case "BACKUP":
+                    case "NO":
                         console.log(`time=$(date "+%Y-%m-%d-%H-%M-%S")&&mv ${backendinfo.folder} ${backendinfo.folder}.$time.bak`);
                         let backupFolder = path.join(backendinfo.position, "SVFBackup");
                         if (!fs.existsSync(backupFolder)) {

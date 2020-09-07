@@ -14,8 +14,8 @@ if [[ $sysOS == "Linux" ]]; then
 
     echo "System: ${release_name} ${release_num}"
 
-    if [ $release_name == "Ubuntu" ]; then
-        if [ $release_num == 18.04 ] || [ $release_num == 20.04 ]; then
+    if [[ $release_name == "Ubuntu" ]]; then
+        if [[ $release_num == 18.04 ]] || [[ $release_num == 20.04 ]]; then
             # for basic tools
             cd ~
             flagFile=".allsvfinstall.flag"
