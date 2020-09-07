@@ -18,3 +18,5 @@ script="backend.sh"
 if [[ -f $script ]]; then
     rm $script
 fi
+
+cd ~

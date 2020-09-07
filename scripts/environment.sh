@@ -78,3 +78,5 @@ if [[ -d $backup ]]; then
         rm -rf $backup
     fi
 fi
+
+cd ~
